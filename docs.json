@@ -89,5 +89,8 @@
   },
   "styling": {
     "eyebrows": "section"
+  },
+  "background": {
+    "decoration": "gradient"
   }
 }
