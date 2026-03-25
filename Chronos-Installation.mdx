@@ -1,0 +1,365 @@
+---
+title: "Installation"
+description: "This is the full tutorial on how to correctly install and setup Chronos in your game. Before contacting supoort about setting up Chronos, please read through this document. "
+---
+
+<Frame>
+  ![Chronos Background Web](/images/ChronosBackgroundWeb.png)
+</Frame>
+
+# Studio Setup
+
+This is the complete tutorial on how to setup Chronos on ROBLOX Studio.
+
+<Note>
+  Please ensure that you own the license for Chronos, this can be found on our [website](https://ariproducts.aricorp.co.uk/products/Chronos)
+</Note>
+
+## Getting Started
+
+<Steps>
+  <Step title="Insert Chronos into your game">
+    After purchasing Chronos, you will receive a DM from @Parcel, please retrieve the file from there or check your [Parcel Product Dashboard](https://my.parcelroblox.com/)
+  </Step>
+  <Step title="Moving Files to the correct places">
+    After inserting Chronos into your game, place the corresponding files in the correct areas.\\
+
+    Take out `ChronosBoards` from AriProducts Chronos and place it inside Workspace, do not remove anything inside `ChronosBoards`\
+    Place `Chronos/ChronosServer` Inside ServerScript Service\
+    Place `Chronos/ChronosLocal` Inside StarterPlayer/StarterPlayerScripts\
+    Lastly, Place `ChronosConfiguration` inside ReplicatedStorage
+  </Step>
+  <Step title="Ensure HTTP requests/API services are enabled">
+    Check to make sure your security settings are correct. You can do this by heading to **Home** in Roblox Studio, then **Game Settings**
+  </Step>
+</Steps>
+
+## Setting Chronos Up
+
+Please open the ChronosConfiguration script inside ReplicatedStorage. \
+Open up each folder under this to learn how to correctly setup each feature.
+
+<AccordionGroup>
+  <Accordion title="Board">
+    <Steps>
+      <Step title="Configuration.Board.Name">
+        Here you can set the name of your board, you can set it to anything you like by editing 
+
+        ```lua
+        "Chronos"
+        ```
+
+        Set that to anything you wish, please do keep it under 12 characters to avoid overlapping text on the displays.
+      </Step>
+      <Step title="Configuration.Board.RefreshIntervalSeconds">
+        In this part, you can edit the refresh rate (how often the board should refresh) we recommend keeping it at 5 seconds, any slower or longer may cause bugs in your game.
+      </Step>
+      <Step title="Configuration.Board.MaxEventsPerBoard">
+        The amount of allowed events per board, you can set this to whatever you wish, you can do this by editing `6` to a different number.
+      </Step>
+      <Step title="Configuration.Board.SortAscending">
+        If true, events are ordered from soonest → latest. We recommend keeping it at true.
+      </Step>
+      <Step title="Configuration.Board.GlobalBoardsEnabled">
+        Enables boards for everyone (not just nearby players). We also recommend keeping this on true.
+      </Step>
+      <Step title="Configuration.Board.BoardDetectionRadius">
+        If global boards are off, players must be within this many studs to see the board. We also recommend keeping this like it was by default.
+      </Step>
+    </Steps>
+  </Accordion>
+
+  <Accordion title="Zoom & Topbar">
+    <Steps>
+      <Step title="Configuration.Zoom.ButtonText">
+        The text displayed on the topbar button to zoom into the closest board. You can edit this to whatever you like but we recommend keeping it under 15 characters.
+      </Step>
+      <Step title="Configuration.Zoom.IconImage">
+        Image asset ID for the Zoom button icon (empty = no icon) To edit this ensure that the Image is a decal and has a decal ID.
+      </Step>
+      <Step title="Configuration.Zoom.TweenInTime">
+        How long the zoom-in transition takes (seconds). You can edit the current number to whatever you like, if the number is smaller it will take less time for the characters camera to reach the board, if the number is larger it will take longer for the characters camera to reach the board.
+      </Step>
+      <Step title="Configuration.Zoom.TweenOutTime">
+        How long the zoom-out transition takes (seconds). You can edit the current number to whatever you like, if the number is smaller it will take less time for the characters camera to return from the board, if the number is larger it will take longer for the characters camera to return from the board.
+      </Step>
+      <Step title="Configuration.Zoom.CameraOffset">
+        <Warning>
+          We only recommend experienced customers to edit this feature.
+        </Warning>
+
+        Camera offset applied when zooming (CFrame). No support will be offered if something breaks from editing this.
+      </Step>
+      <Step title="Configuration.Zoom.LockCameraDuringZoom">
+        If true, player camera is locked while zoomed in.
+      </Step>
+      <Step title="Configuration.Zoom.AllowRepeatedUse">
+        If true, players can trigger zoom repeatedly. We recommend keeping it on true so users can view the board repeatedly.
+      </Step>
+    </Steps>
+  </Accordion>
+
+  <Accordion title="Event Display">
+    <Steps>
+      <Step title="Configuration.EventDisplay.ShowLocation">
+        Shows the event location text. Set to true to show, false to hide. We recommend keeping it on true if you have a location.
+      </Step>
+      <Step title="Configuration.EventDisplay.ShowDuration">
+        Shows the event time range (start → end). Set to true to show, false to hide. We recommend keeping it on true to show how long the training, shift or event will take.
+      </Step>
+      <Step title="Configuration.EventDisplay.ShowStatus">
+        Shows the status/countdown line (e.g. “Starting in 15m”). Set to true to show, false to hide. We recommend keeping this on true to show others when the event will be starting precisely.
+      </Step>
+      <Step title="Configuration.EventDisplay.ShowHostUser">
+        Shows “Hosted by: username”. Set to true to show, false to hide.
+      </Step>
+      <Step title="Configuration.EventDisplay.ShowHostImage">
+        Shows the host’s avatar headshot. Set to true to show, false to hide.
+      </Step>
+      <Step title="Configuration.EventDisplay.TruncateTitleLength">
+        Cuts off long titles to this length and adds ... . Set a number like 60. Use 0 to disable truncation.
+      </Step>
+      <Step title="Configuration.EventDisplay.TemplateMode">
+        Chooses which card template to use.
+
+        - "EventTemplate" to force the standard template, no host, no host image.
+        - "ShiftTrainingTemplate" to force the alternate template, host image and host
+        - "Auto" to use ShiftTrainingTemplate if present, otherwise EventTemplate, we recommend keeping this as your option for our system to automatically set the correct type.
+      </Step>
+    </Steps>
+  </Accordion>
+
+  <Accordion title="Sources">
+    <Steps>
+      <Step title="Configuration.Sources.UseTrello">
+        Enables Trello as an event source. When true, Chronos will call the Trello API and pull cards from your configured list.
+
+        - Set to true if you want Trello events on your boards.
+        - Set to false if you don’t use Trello or want to temporarily disable it.
+
+        Make sure your Trello API key, token, and list ID are set correctly or you’ll see errors in output.
+      </Step>
+      <Step title="Configuration.Sources.UseHyra">
+        Enables Hyra as an event source. Chronos will pull upcoming sessions from your Hyra workspace.
+
+        - Set to true to use Hyra events.
+        - Set to false if you don’t use Hyra.
+
+        Requires a valid Hyra token and workspace ID to work.
+      </Step>
+      <Step title="Configuration.Sources.UseSeries">
+        Enables Series as an event source. Chronos will pull upcoming sessions from the Series API.
+
+        - Set to true to use Series events.
+        - Set to false if you don’t use Series.
+
+        Requires a valid Series API key and workspace ID.
+      </Step>
+      <Step title="Configuration.Sources.MergeSources">
+        Controls whether events from **all enabled sources** are combined into one list.
+
+        - true = Trello \+ Hyra \+ Series events will all appear together, sorted by time.
+        - false = Only the **first source that returns events** is used.
+
+        Recommend: Set true if you want _all_ events to show. Set false if you want only one source at a time.
+      </Step>
+      <Step title="Configuration.Sources.HttpTimeoutSeconds">
+        How long Chronos will wait (in seconds) for each API request before timing out.
+
+        - If your APIs are slow or you see timeouts, increase it (e.g., 15 or 20).
+        - If you want faster failover, keep it lower (e.g., 5 or 10).
+
+        Default 10 is a good balance.
+      </Step>
+      <Step title="Information">
+        <Info>
+          We are simultaneously working on adding new sources to Chronos, please expect more to Chronos soon.
+        </Info>
+      </Step>
+    </Steps>
+  </Accordion>
+
+  <Accordion title="Trello — Source Configuration">
+    <Steps>
+      <Step title="Configuration.Trello.ApiKey">
+        Your Trello API key. Chronos uses this to authenticate every Trello request.
+
+        1. Go to [https://trello.com/power-ups/admin/](https://trello.com/power-ups/admin/) and press 'New' on  'Your Apps'\
+           Fill out all of the information including the App Name, Chose your prefered workspace you will be hosting the sessions and fill out the rest. Then press 'Create'
+        2. Press on 'Generate a new API Key' 
+        3. Copy the **API key** only 
+        4. Paste it into Configuration.Trello.ApiKey.\
+           After doing so, it should look like something like this:\
+           `Configuration.Trello.ApiKey = "4a0da0ddf81977ebb84125396e130b09"`
+      </Step>
+      <Step title="Configuration.Trello.Token">
+        Your Trello API token. This is the secret that grants access to your boards and lists.\
+        This token must belong to an account that can see the board you’re using.
+
+        1. First, paste this into your browser search engine:
+           ```text
+           https://trello.com/1/authorize?key=YOUR_API_KEY&name=Chronos&expiration=never&response_type=token&scope=read,write
+           ```
+           Replace YOUR\_API\_KEY with your API Key and press enter.
+        2. After that, Click **Allow**.
+        3. Then, copy the Token that is found in red, it should be 76 characters long.
+        4. Paste it into Configuration.Trello.Token =  Due to the Token being a secret that should not be shared, we are not allowed to display it to the public even if it is a false one that we do not use.
+      </Step>
+      <Step title="Configuration.Trello.ListId">
+        The exact Trello **list ID** where your event cards live.Use the Trello API to list your board’s lists. Copy the id of the list you want (not the board ID, not the list name).
+
+        1. Open your Trello board. The URL looks like:\\
+           ```text
+           https://trello.com/b/2FAKE3S4/Chronos
+           ```
+           `BOARDID` is the part after `/b/`.
+        2. Paste this into your browser search engine:\\
+           ```text
+           https://api.trello.com/1/boards/BOARDID/lists?key=YOUR_API_KEY&token=YOUR_TOKEN
+           ```
+           Replace BOARDID with your board ID, replace YOUR\_API\_KEY with your API Key and replace YOUR\_TOKEN with your token. After that press enter.
+        3. You’ll get JSON like:
+           ```text
+           {"id":"88a88a8d0888d8888d8e88e","name":"Scheduled",...}
+           ```
+           You will have more then one if you have more tabs created in your trello workspace, only choose **one** where you want the events coming out from.
+        4. Copy the id numbers (e.g 88a88a8d0888d8888d8e88e)
+        5. Paste it inside Configuration.Trello.ListId\
+           It should look like this:\
+            `Configuration.Trello.ListId = "88a88a8d0888d8888d8e88e"`
+      </Step>
+      <Step title="Configuration.Trello.CardLimit">
+        The maximum number of Trello cards to fetch.
+
+        - Increase if you expect lots of cards (e.g., 50).
+        - Keep lower if you want less API load.
+      </Step>
+      <Step title="Configuration.Trello.IncludeCompleted">
+        Controls whether completed Trello cards (where dueComplete is true) are included.
+
+        - true = show completed cards
+        - false = hide completed cards
+      </Step>
+      <Step title="Field Mapping">
+        ```lua
+        Configuration.Trello.FieldMapping = {
+        	StartDate = "Start",
+        	Location = "Location",
+        	Duration = "Duration",
+        	Status = "Status",
+        	Host = "Host"
+        }
+        ```
+
+        This\*\* \*\*Maps Trello fields (custom fields or description tags) into Chronos event fields.\
+        Right now, **this mapping is not currently being used for public release**.\
+        Chronos only reads:
+
+        - **Title** from the card name
+        - **Start** from the card due date
+        - **Duration** from the card description (`Duration: 1h 30m`)
+        - **Host** from the card description (`Host: Username`)
+      </Step>
+    </Steps>
+  </Accordion>
+
+  <Accordion title="Hyra">
+    <Steps>
+      <Step title="Configuration.Hyra.Token">
+        Your Hyra API token. Chronos uses this to authenticate requests to the Hyra API.
+
+        1. First, make sure that you have a Hyra workspace created before beginning.
+        2. On your Hyra Workspace, go to the <Icon icon="gear" /> setting icon and scroll down until you see 'Developer API'
+        3. Press 'Create API Key' Give it a name and copy the API Key.
+           <Warning>
+             You can only see the API Key **once**, please save it as fast as you can.
+           </Warning>
+        4. Paste the API Key into Configuration.Hyra.Token
+      </Step>
+      <Step title="Configuration.Hyra.WorkspaceId">
+        The Hyra workspace ID to pull sessions from.
+
+        1. To get the WorkspaceID, you only have to copy the number from the URL of your hyra workspace, it should look like this:\
+           `https://app.hyra.io/999e999e99999d9dd9d99999/settings/developer`\
+           or\
+           `https://app.hyra.io/999e999e99999d9dd9d99999/`
+        2. Copy the WorkspaceID
+        3. Paste it into Configuration.Hyra.WorkspaceId\
+           It should look like this: \
+           `Configuration.Hyra.WorkspaceId = "999e999e99999d9dd9d99999"`
+      </Step>
+      <Step title="Configuration.Hyra.EventLimit">
+        The maximum number of upcoming sessions to request from Hyra.\
+        Increase if you have lots of sessions, decrease to reduce API load.
+      </Step>
+      <Step title="Configuration.Hyra.IncludePastEvents">
+        If true, Chronos keeps past Hyra sessions.
+
+        - false = only future sessions (recommended)
+        - true = include past sessions
+      </Step>
+    </Steps>
+  </Accordion>
+
+  <Accordion title="Series">
+    <Steps>
+      <Step title="Configuration.Series.ApiKey">
+        Your Series API key. Chronos uses this to authenticate requests to the Series API.
+
+        1. First, make sure that you have a series workspace.
+        2. Inside your workspace, find 'Development'
+        3. Make sure that you are on the API Keys tab, press 'Create API Key' and fill out the information.
+        4. Copy the API Key
+        5. Paste it into Configuration.Series.ApiKey
+      </Step>
+      <Step title="Configuration.Series.WorkspaceId">
+        The Series workspace ID to pull sessions from.
+
+        1. The easiest way is to scroll down until you see 'Workspace Settings'
+        2. Then on 'Workspace Information' Scroll down until you see the field 'Workspace ID'
+        3. Copy the WorkspaceID and paste it into Configuration.Series.WorkspaceId
+      </Step>
+      <Step title="Configuration.Series.EventLimit">
+        If true, Chronos keeps past Series sessions.
+
+        - false = only future sessions (recommended)
+        - true = include past sessions
+      </Step>
+    </Steps>
+  </Accordion>
+
+  <Accordion title="Sorting">
+    <Steps>
+      <Step title="Configuration.Sorting.SortByStartTime">
+        Sorts events by their start time so the soonest event appears first.
+
+        - true = sort all events by start time (recommended)
+        - false = keep the order events are returned from the source(s)
+      </Step>
+      <Step title="Configuration.Sorting.RemovePastEvents">
+        Removes events that already started before os.time().
+
+        - true = hide past events (recommended)
+        - false = show past events too
+      </Step>
+      <Step title="Configuration.Sorting.AllowEqualStartTimes">
+        Controls how events with the exact same start time are handled.
+
+        - true = allow events with identical start times to display together
+        - false = enforce a strict ordering (may push one event below another)
+      </Step>
+    </Steps>
+  </Accordion>
+</AccordionGroup>
+
+# Discord Bot Setting Up
+
+<Info>
+  At this moment in time, our Chronos Discord bot has not yet been fully finished, we are Finalising final features and finishing testing, please expect this to be a feature very soon.
+</Info>
+
+# Thats it!
+
+That is it! There is nothing else to configure within Chronos.\
+\
+You can view our extra features inside the 'Features' folder.

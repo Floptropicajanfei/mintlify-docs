@@ -1,0 +1,112 @@
+---
+title: "Errors"
+---
+
+This is a completed version of every error and what it means within Chronos.\
+Please refer to this if you are unsure on what a error means before contacting support.
+
+### \[Chronos\] No license found
+
+Any license failure: missing IDs, module load fail, API fail, or not owned
+
+### Missing required object: \<name\> inside \<path\>
+
+This error means your board UI hierarchy is missing a required object (e.g., Cards, Topbar, Errors). Fix your monitorGui structure and check if everything is correct. \
+\
+This error normally happens when you create a custom theme, please make sure that everything is correct and nothing has been removed / changed.
+
+### No theme found inside \<monitorGui\> -\> Themes
+
+This means there is no valid theme (Frame/Folder) under monitorGui/Themes, or none are visible.\
+\
+Make sure to have **one** theme always visible for the board working.
+
+### Trello configuration incomplete
+
+One or more of Configuration.Trello.ApiKey, Token, ListId is empty or incomplete.\
+Refer to the installation page to fully complete the trello configuration
+
+### \[Chronos\]\[Trello\] Request failed: \<status\> \<body\>
+
+Trello API returned an error. The status/body explain why (bad key/token, wrong list ID, etc.).
+
+### Trello request failed: \<status\>
+
+Trello request failed and was thrown as an error after logging the response.
+
+### Hyra configuration incomplete
+
+Missing Configuration.Hyra.Token or WorkspaceId or is incomplete.\
+Refer to the installation page to fully complete the Hyra configuration
+
+### Hyra request failed: \<status\>
+
+Hyra API call failed (bad token/workspace, timeout, etc.).
+
+### \[Chronos\]\[Series\] Disabled by config
+
+Configuration.Sources.UseSeries is false, so Series isn’t used.
+
+### Series configuration incomplete
+
+Missing Configuration.Series.ApiKey or Workspace.
+
+Refer to the installation page to fully complete the Series configuration.
+
+### \[Chronos\]\[Series\] Request failed: \<status\> \<body\>
+
+Series API returned an error. Status/body explain why.
+
+### Series request failed: \<status\>
+
+Series request failed and was thrown as an error after logging the response.
+
+### \[Chronos\]\[Series\] List fallback failed: \<status\> \<body\>
+
+The fallback list call failed (used when the status filter returns no sessions).
+
+### \[Chronos\]\[Series\] No sessions returned. Body: \<body\>
+
+Series returned no sessions. This is informational but indicates no events.
+
+### \[Chronos\]\[Source\] ERROR: \<err\>
+
+A fetch for a given source failed inside safeFetch.
+
+### Missing EventTemplate inside Cards
+
+Your theme’s Cards folder is missing EventTemplate (and no ShiftTrainingTemplate fallback).
+
+### \[Chronos\] TopbarPlus not found in ReplicatedStorage. Icon will not load.
+
+Missing the TopbarPlus folder module (or it isn’t in ReplicatedStorage).
+
+### \[Chronos\] No EventZoomCamera found near player.
+
+The zoom camera object isn’t found near the player when trying to zoom.
+
+## Non Error logs / warnings
+
+This is a log of warnings / logs that you should not worry about while Chronos is working.
+
+### \[Chronos\] ChronosServer loaded
+
+The server script started successfully. 
+
+### \[Chronos\] License found
+
+The Parcel license check passed, so Chronos is allowed to run.
+
+### \[Chronos\]\[Series\] Disabled by config
+
+Series is turned off in Configuration.Sources.UseSeries.
+
+### \[Chronos\]\[Source\] OK: \<count\>
+
+A source fetched successfully and returned \<count\> events.
+
+<Info>
+  All of these errors listed here were found and tested on Chronos meaning they are 100% up-to-date. There might be some errors that we have missed. Information on how to fix each one of them can be found in the installation or Custom Themes page.
+</Info>
+
+If you require support or miraculously find an error which we have not identified, please contact support by joining our discord server /ariproducts 
