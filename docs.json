@@ -85,8 +85,7 @@
     }
   },
   "thumbnails": {
-    "appearance": "light",
-    "background": "/images/docus.png"
+    "appearance": "light"
   },
   "styling": {
     "eyebrows": "section"
