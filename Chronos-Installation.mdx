@@ -22,11 +22,12 @@ This is the complete tutorial on how to setup Chronos on ROBLOX Studio.
     After purchasing Chronos, you will receive a DM from @Parcel, please retrieve the file from there or check your [Parcel Product Dashboard](https://my.parcelroblox.com/)
   </Step>
   <Step title="Moving Files to the correct places">
-    After inserting Chronos into your game, place the corresponding files in the correct areas.\\
+    After inserting Chronos into your game, place the corresponding files in the correct areas.
 
     Take out `ChronosBoards` from AriProducts Chronos and place it inside Workspace, do not remove anything inside `ChronosBoards`\
     Place `Chronos/ChronosServer` Inside ServerScript Service\
     Place `Chronos/ChronosLocal` Inside StarterPlayer/StarterPlayerScripts\
+    Place `TopbarPlus` Inside ReplicatedStorage (Do not remove anything from that Folder)\
     Lastly, Place `ChronosConfiguration` inside ReplicatedStorage
   </Step>
   <Step title="Ensure HTTP requests/API services are enabled">
@@ -263,7 +264,7 @@ Open up each folder under this to learn how to correctly setup each feature.
     </Steps>
   </Accordion>
 
-  <Accordion title="Hyra">
+  <Accordion title="Hyra — Source Configuration">
     <Steps>
       <Step title="Configuration.Hyra.Token">
         Your Hyra API token. Chronos uses this to authenticate requests to the Hyra API.
@@ -301,7 +302,7 @@ Open up each folder under this to learn how to correctly setup each feature.
     </Steps>
   </Accordion>
 
-  <Accordion title="Series">
+  <Accordion title="Series — Source Configuration">
     <Steps>
       <Step title="Configuration.Series.ApiKey">
         Your Series API key. Chronos uses this to authenticate requests to the Series API.
