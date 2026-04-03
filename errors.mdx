@@ -85,13 +85,33 @@ Missing the TopbarPlus folder module (or it isn’t in ReplicatedStorage).
 
 The zoom camera object isn’t found near the player when trying to zoom.
 
+### \[Chronos\] Firefli BaseUrl must start with http:// or https://
+
+Error that means the Firefli host value is missing a valid protocol prefix.
+
+### Firefli configuration incomplete
+
+Error that means required Firefli fields such as API key or workspace ID are empty.
+
+### Firefli request failed: \<statusCode\>
+
+Error that means the Firefli API returned a non-success HTTP response.
+
+### Planetary configuration incomplete
+
+Required Planetary config values (typically ApiKey or WorkspaceId) are missing.
+
+### Planetary request failed: \<statusCode\>
+
+is an error that means the Planetary API returned a non-success HTTP response.
+
 ## Non Error logs / warnings
 
 This is a log of warnings / logs that you should not worry about while Chronos is working.
 
 ### \[Chronos\] ChronosServer loaded
 
-The server script started successfully. 
+The server script started successfully.
 
 ### \[Chronos\] License found
 
@@ -105,8 +125,12 @@ Series is turned off in Configuration.Sources.UseSeries.
 
 A source fetched successfully and returned \<count\> events.
 
+### \[Chronos\]\[\<Source\>\] ERROR: \<message\>
+
+Source wrapper warning that reports which provider failed (Firefli, Planetary, etc.) and includes the exact underlying error text.
+
 <Info>
   All of these errors listed here were found and tested on Chronos meaning they are 100% up-to-date. There might be some errors that we have missed. Information on how to fix each one of them can be found in the installation or Custom Themes page.
 </Info>
 
-If you require support or miraculously find an error which we have not identified, please contact support by joining our discord server /ariproducts 
+If you require support or miraculously find an error which we have not identified, please contact support by joining our discord server /ariproducts

@@ -88,6 +88,9 @@ Open up each folder under this to learn how to correctly setup each feature.
       <Step title="Configuration.Zoom.AllowRepeatedUse">
         If true, players can trigger zoom repeatedly. We recommend keeping it on true so users can view the board repeatedly.
       </Step>
+      <Step title="Configuration.Zoom.EnableBoardCornerZoom ">
+        If true, players can click on a part at the bottom of a board and zoom in that way, when clicked again or moved / clicked any other button, the camera will go back to them. If false, the click zoom will not work.
+      </Step>
     </Steps>
   </Accordion>
 
@@ -118,6 +121,9 @@ Open up each folder under this to learn how to correctly setup each feature.
         - "ShiftTrainingTemplate" to force the alternate template, host image and host
         - "Auto" to use ShiftTrainingTemplate if present, otherwise EventTemplate, we recommend keeping this as your option for our system to automatically set the correct type.
       </Step>
+      <Step title="Configuration.EventDisplay.ClaimedSessionsOnly">
+        If True, it will only display claimed sessions, if set to false it will display unclaimed and claimed sessions.
+      </Step>
     </Steps>
   </Accordion>
 
@@ -147,13 +153,21 @@ Open up each folder under this to learn how to correctly setup each feature.
 
         Requires a valid Series API key and workspace ID.
       </Step>
-      <Step title="Configuration.Sources.MergeSources">
-        Controls whether events from **all enabled sources** are combined into one list.
+      <Step title="Configuration.Sources.UseFirefli">
+        Enables Firefli as an event source. Chronos will pull upcoming sessions from the Firefli API.
 
-        - true = Trello \+ Hyra \+ Series events will all appear together, sorted by time.
-        - false = Only the **first source that returns events** is used.
+        - Set to true to use Firefli events.
+        - Set to false if you don’t use Firefli.
 
-        Recommend: Set true if you want _all_ events to show. Set false if you want only one source at a time.
+        Requires a valid Firefli API key and workspace ID.
+      </Step>
+      <Step title="Configuration.Sources.UsePlanetary">
+        Enables Planetary as an event source. Chronos will pull upcoming sessions from the Planetary API.
+
+        - Set to true to use Planetary events.
+        - Set to false if you don’t use Planetary.
+
+        Requires a valid Planetary API key and workspace ID.
       </Step>
       <Step title="Configuration.Sources.HttpTimeoutSeconds">
         How long Chronos will wait (in seconds) for each API request before timing out.
@@ -226,31 +240,13 @@ Open up each folder under this to learn how to correctly setup each feature.
         - Increase if you expect lots of cards (e.g., 50).
         - Keep lower if you want less API load.
       </Step>
-      <Step title="Configuration.Trello.IncludeCompleted">
-        Controls whether completed Trello cards (where dueComplete is true) are included.
+      <Step title="Mapping">
+        For the description for Trello, please use this format for the Co-Host and Host to be displayed.
 
-        - true = show completed cards
-        - false = hide completed cards
-      </Step>
-      <Step title="Field Mapping">
-        ```lua
-        Configuration.Trello.FieldMapping = {
-        	StartDate = "Start",
-        	Location = "Location",
-        	Duration = "Duration",
-        	Status = "Status",
-        	Host = "Host"
-        }
+        ```text
+        Host: robloxusername
+        Co-Host: robloxusername
         ```
-
-        This Maps Trello fields (custom fields or description tags) into Chronos event fields.\
-        Right now, **this mapping is not currently being used for public release**.\
-        Chronos only reads:
-
-        - **Title** from the card name
-        - **Start** from the card due date
-        - **Duration** from the card description (`Duration: 1h 30m`)
-        - **Host** from the card description (`Host: Username`)
       </Step>
     </Steps>
   </Accordion>
@@ -280,16 +276,6 @@ Open up each folder under this to learn how to correctly setup each feature.
            It should look like this: \
            `Configuration.Hyra.WorkspaceId = "999e999e99999d9dd9d99999"`
       </Step>
-      <Step title="Configuration.Hyra.EventLimit">
-        The maximum number of upcoming sessions to request from Hyra.\
-        Increase if you have lots of sessions, decrease to reduce API load.
-      </Step>
-      <Step title="Configuration.Hyra.IncludePastEvents">
-        If true, Chronos keeps past Hyra sessions.
-
-        - false = only future sessions (recommended)
-        - true = include past sessions
-      </Step>
     </Steps>
   </Accordion>
 
@@ -311,11 +297,74 @@ Open up each folder under this to learn how to correctly setup each feature.
         2. Then on 'Workspace Information' Scroll down until you see the field 'Workspace ID'
         3. Copy the WorkspaceID and paste it into Configuration.Series.WorkspaceId
       </Step>
-      <Step title="Configuration.Series.EventLimit">
-        If true, Chronos keeps past Series sessions.
+    </Steps>
+  </Accordion>
 
-        - false = only future sessions (recommended)
-        - true = include past sessions
+  <Accordion title="Planetary — Source Configuration">
+    <Steps>
+      <Step title="Configuration.Planetary.ApiKey">
+        Your Planetart API token. Chronos uses this to authenticate requests to the Planetary API.
+
+        1. Go to settings and then Public API
+        2. Click on 'Create  API Key\`
+        3. Fill out the name and then copy the API key
+           <Warning>
+             You cannot retrieve the API Key
+           </Warning>
+        4. Paste the API Key into `Configuration.Planetary.ApiKey = ""`
+      </Step>
+      <Step title="Configuration.Planetary.WorkspaceId">
+        This identifies which workspace’s sessions are requested.
+
+        1. From your URL, get the 9 digit ID, it is the number at the end:
+           ```text
+           https://instance.planetaryapp.cloud/workspace/631688917
+           ```
+        2. Copy the 9 Digit ID and place it into `Configuration.Planetary.WorkspaceId = ""`
+      </Step>
+      <Step title="Configuration.Planetary.BaseUrl">
+        The Host / Domain for requests.
+
+        1. Find the exact public domain where your Planetary instance is hosted.
+        2. Ensure the domain includes protocol, usually `https://`
+        3. Set Configuration.Planetary.BaseUrl to that domain only.
+      </Step>
+    </Steps>
+  </Accordion>
+
+  <Accordion title="Firefli — Source Configuration">
+    <Steps>
+      <Step title="Configuration.Firefli.ApiKey">
+        Your Firefli API token. Chronos uses this to authenticate requests to the Firefli API.
+
+        1. Go to settings and then Public API
+        2. Click on Create API Key
+        3. Fill out the name and then copy the API Key
+           <Warning>
+             You cannot retrieve the API Key
+           </Warning>
+        4. Place the API Key into `Configuration.Firefli.ApiKey = ""`
+      </Step>
+      <Step title="Configuration.Firefli.WorkspaceId">
+        This identifies which workspace’s sessions are requested.
+
+        1. From your URL, get the 9 digit ID, it is the number at the end:
+           ```text
+           https://app.firefli.net/workspace/631688917
+           ```
+        2. Copy the 9 Digit ID and place it into `Configuration.Firefli.WorkspaceId = ""`
+      </Step>
+      <Step title="Configuration.Firefli.BaseUrl">
+        The Host / Domain for requests.
+
+        1. If you are not self hosting, use `https://app.firefli.net`
+        2. If you are self hosting, deploy your firefli instance and confirm the public domain it uses.
+        3. Copy the public domain and include `https://` at the start.
+        4. Put that full domain into Configuration.Firefli.BaseUrl = "". It should look like this:\
+           `Configuration.Firefli.BaseUrl = "https://fireflii.aricorp.co.uk"` Just with your own domain.
+      </Step>
+      <Step title="Configuration.Firefli.EndpointPath">
+        API route template Chronos calls. We request you leave the current one unless the firefli docs request you to use a different one.
       </Step>
     </Steps>
   </Accordion>
